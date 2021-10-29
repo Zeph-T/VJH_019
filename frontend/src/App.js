@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {BrowserRouter,Switch,Route} from 'react-router-dom';
+import SnackBar from './components/common/SnackBar';
+import Home from './components/home/home';
+import { Container } from '@material-ui/core';
 
 function App() {
+  const oSnackBar = React.createRef();
+  let openSnackBar = (message)=>{
+    if(oSnackBar.current){
+      oSnackBar.current.openSnackBar(message)
+    }
+  }
+  let closeSnackBar = () => {
+    if(oSnackBar.current){
+      oSnackBar.current.closeSnackBar();
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <Route exact path='/' render={(props)=><Home openSnackBar={openSnackBar} {...props}/> } />
+      </Container>
     </div>
   );
 }
