@@ -1,16 +1,19 @@
-from flask import Flask
+from flask import Flask,request
+import os
 from flask_cors import CORS
-from requests.api import request
-from classes.model import predict_deficiency
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+from index import predict_deficiency
 app = Flask(__name__)
-cors = CORS(app,support_credentials=True)
+cors = CORS(app)
 @app.route('/')
 def main():
     return 'Working !! '
 
-@app.route('/predict')
+@app.route('/predict',methods=['POST'])
 def predict():
     data = request.json
+    print(data)
     return predict_deficiency(data['image_url'])
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ import useStyles from './styles/navbar_styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { CardMedia } from '@material-ui/core'
-import { DiseaseLabels } from '../utilities'
+import { nutrientLabels } from '../utilites'
 
 function DiseaseDetection() {
   const [image, setImage] = useState('')
@@ -16,7 +16,7 @@ function DiseaseDetection() {
 
   useEffect(() => {
     if (url) {
-      fetch('/cropDiseaseDetection', {
+      fetch('https://localhost:8080/predict', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -129,9 +129,12 @@ function DiseaseDetection() {
             {result.map((i) => {
               return (
                 <Card className={classes.responsecard}>
-                  <Typography variant='subtitle1'>
-                    {DiseaseLabels[i]}
-                  </Typography>
+                  {
+                    nutrientLabels[i].split("-->")[1] !== 'healthy' ? <Typography variant='subtitle1'>
+                    {nutrientLabels[i]}
+                  </Typography> : null
+                  }
+                  
                 </Card>
               )
             })}
