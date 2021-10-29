@@ -1,28 +1,26 @@
-import React from 'react';
-import {BrowserRouter,Switch,Route} from 'react-router-dom';
-import SnackBar from './components/common/SnackBar';
-import Home from './components/home/home';
-import { Container } from '@material-ui/core';
+import React from 'react'
+import './App.css'
+import Home from './components/home'
+import Navbar from './components/navbar'
+import DiseaseDetection from './components/diseaseDetection'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 function App() {
-  const oSnackBar = React.createRef();
-  let openSnackBar = (message)=>{
-    if(oSnackBar.current){
-      oSnackBar.current.openSnackBar(message)
-    }
-  }
-  let closeSnackBar = () => {
-    if(oSnackBar.current){
-      oSnackBar.current.closeSnackBar();
-    }
-  }
   return (
-    <div className="App">
-      <Container>
-        <Route exact path='/' render={(props)=><Home openSnackBar={openSnackBar} {...props}/> } />
-      </Container>
+    <div className='App'>
+      <BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route exact path='/diseasedetection'>
+            <DiseaseDetection />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
