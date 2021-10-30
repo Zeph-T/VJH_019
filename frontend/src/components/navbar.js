@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './styles/navbar_styles';
 import {Link} from 'react-router-dom'
-
+import logo from '../images/logo.png'
 
 
 function Navbar() {
@@ -20,7 +20,7 @@ function Navbar() {
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     <MenuIcon />
                 </IconButton>
-                <Link to='/'><img src='logo.png' alt='logo' height='120px' width='120px' /></Link>
+                <Link to='/'><img src={logo} alt='logo' height='80px' width='80px' /></Link>
                 <div style={{flexGrow:'1'}}>
                 <Typography variant='h5' style={{color:'#ddbd17'}}><b>We innovate your cultivation!</b></Typography>
                 </div>

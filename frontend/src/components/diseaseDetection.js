@@ -5,14 +5,15 @@ import CardContent from '@material-ui/core/CardContent'
 import useStyles from './styles/navbar_styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { CardMedia } from '@material-ui/core'
+import { CardMedia,LinearProgress } from '@material-ui/core'
 import { nutrientLabels } from '../utilites'
 
 function DiseaseDetection() {
   const [image, setImage] = useState('')
   const [url, setUrl] = useState('')
+  const [loading,setLoading] = useState(false);
   const classes = useStyles()
-  const [result, setResults] = useState([3, 5, 13])
+  const [result, setResults] = useState([])
 
   useEffect(() => {
     if (url) {
@@ -36,9 +37,11 @@ function DiseaseDetection() {
     }
     console.log(image)
     console.log(url)
+    setLoading(false);
   }, [image, url])
 
   const postDetails = () => {
+    setLoading(true);
     const data = new FormData()
     data.append('file', image)
     data.append('upload_preset', 'Instafam')
@@ -62,7 +65,7 @@ function DiseaseDetection() {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        marginBottom: '20%',
+        // marginBottom: '20%',
         alignItems: 'center',
       }}
     >
@@ -75,7 +78,6 @@ function DiseaseDetection() {
             Just upload a clear image of a crop infection and we will predict
             the disease type and Deficiency!
           </Typography>
-
           <Button
             style={{ margin: '10px' }}
             size='large'
@@ -107,52 +109,62 @@ function DiseaseDetection() {
           />
         </CardMedia>
       </Card>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        {url ? (
-          <Card className={classes.imageresponsecard}>
-            <img src={url} width='350px' height='auto' />
-          </Card>
-        ) : (
-          ''
-        )}
-        {result.length > 0 ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              marginTop: '30px',
-            }}
-          >
-            <Typography variant='h5'>
-              <b>Expected Diseases</b>
-            </Typography>
-            {result.map((i) => {
-              return (
-                <Card className={classes.responsecard}>
-                  {nutrientLabels[i].split('-->')[1] !== 'healthy' ? (
-                    <CardContent>
-                      <Typography variant='subtitle1'>
-                        <b style={{ textAlign: 'center' }}>
-                          {nutrientLabels[i].split('-->')[0]}
-                        </b>
-                      </Typography>
-                      <Typography color='textSecondary'>
-                        <b>
-                          Possible disease: {nutrientLabels[i].split('-->')[1]}
-                        </b>
-                      </Typography>
-                      <Typography color='textPrimary'>
-                        <b>Deficiency : {nutrientLabels[i].split('-->')[2]}</b>
-                      </Typography>
-                    </CardContent>
-                  ) : null}
+      {
+          (loading === true)?
+            (
+              <div className="verticalCenterAligned">
+                <h2>FETCHING RESULTS</h2>
+                <LinearProgress color="secondary" />
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+              {url ? (
+                <Card className={classes.imageresponsecard}>
+                  <img src={url} width='350px' height='auto' />
                 </Card>
-              )
-            })}
-          </div>
-        ) : null}
-      </div>
+              ) : (
+                ''
+              )}
+              {result.length > 0 ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    marginTop: '30px',
+                  }}
+                >
+                  <Typography variant='h5'>
+                    <b>Expected Diseases</b>
+                  </Typography>
+                  {result.map((i) => {
+                    return (
+                      nutrientLabels[i].split('-->')[1] !== 'healthy' ? (
+                      <Card className={classes.responsecard}>
+                          <CardContent>
+                            <Typography variant='subtitle1'>
+                              <b style={{ textAlign: 'center' }}>
+                                {nutrientLabels[i].split('-->')[0]}
+                              </b>
+                            </Typography>
+                            <Typography color='textSecondary'>
+                              <b>
+                                Possible disease: {nutrientLabels[i].split('-->')[1]}
+                              </b>
+                            </Typography>
+                            <Typography color='textPrimary'>
+                              <b>Deficiency : {nutrientLabels[i].split('-->')[2]}</b>
+                            </Typography>
+                          </CardContent>
+                      </Card>
+                      ) : null
+                    )
+                  })}
+                </div>
+              ) : null}
+            </div>
+            )
+      }
     </div>
   )
 }

@@ -29,7 +29,7 @@ function Cutlet() {
             <b>Deficiency Detection</b>
           </Typography>
           <Typography style={{ margin: '15px 15px' }} color='textSecondary'>
-            We will detect if your crops are infected by some disease or not by
+            We will detect if your crops are nutrient deficient and infected by some disease or not by
             inspecting the pictures which we will get from the client!
           </Typography>
           <Button size='large'>Read More</Button>
