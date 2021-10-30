@@ -12,11 +12,12 @@ function DiseaseDetection() {
   const [image, setImage] = useState('')
   const [url, setUrl] = useState('')
   const classes = useStyles()
-  const [result, setResults] = useState([])
+  const [result, setResults] = useState([3, 5, 13])
 
   useEffect(() => {
     if (url) {
-      fetch('https://localhost:8080/predict', {
+      console.log('url')
+      fetch('https://127.0.0.1:8080/predict', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -129,12 +130,23 @@ function DiseaseDetection() {
             {result.map((i) => {
               return (
                 <Card className={classes.responsecard}>
-                  {
-                    nutrientLabels[i].split("-->")[1] !== 'healthy' ? <Typography variant='subtitle1'>
-                    {nutrientLabels[i]}
-                  </Typography> : null
-                  }
-                  
+                  {nutrientLabels[i].split('-->')[1] !== 'healthy' ? (
+                    <CardContent>
+                      <Typography variant='subtitle1'>
+                        <b style={{ textAlign: 'center' }}>
+                          {nutrientLabels[i].split('-->')[0]}
+                        </b>
+                      </Typography>
+                      <Typography color='textSecondary'>
+                        <b>
+                          Possible disease: {nutrientLabels[i].split('-->')[1]}
+                        </b>
+                      </Typography>
+                      <Typography color='textPrimary'>
+                        <b>Deficiency : {nutrientLabels[i].split('-->')[2]}</b>
+                      </Typography>
+                    </CardContent>
+                  ) : null}
                 </Card>
               )
             })}
