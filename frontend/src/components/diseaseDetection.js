@@ -6,7 +6,7 @@ import useStyles from './styles/navbar_styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { CardMedia,LinearProgress } from '@material-ui/core'
-import { nutrientLabels } from '../utilites'
+import { nutrientLabels,oMeasures } from '../utilites'
 
 function DiseaseDetection() {
   const [image, setImage] = useState('')
@@ -154,6 +154,12 @@ function DiseaseDetection() {
                             </Typography>
                             <Typography color='textPrimary'>
                               <b>Deficiency : {nutrientLabels[i].split('-->')[2]}</b>
+                            </Typography>
+                            <Typography color='textPrimary'>
+                              <b>Measures : {
+                              oMeasures[nutrientLabels[i].split('-->')[2]] && oMeasures[nutrientLabels[i].split('-->')[2]].map(oDef=>
+                                <Typography> {oDef} </Typography>
+                              )}</b>
                             </Typography>
                           </CardContent>
                       </Card>

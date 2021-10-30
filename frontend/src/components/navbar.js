@@ -22,7 +22,7 @@ function Navbar() {
                 </IconButton>
                 <Link to='/'><img src={logo} alt='logo' height='80px' width='80px' /></Link>
                 <div style={{flexGrow:'1'}}>
-                <Typography variant='h5' style={{color:'#ddbd17'}}><b>We innovate your cultivation!</b></Typography>
+                <Typography variant='h5' style={{color:'#ddbd17'}}><b></b></Typography>
                 </div>
                 
             </Toolbar>

@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
         flex: '1 1 0'
     },
     cardroot: {
-        width: 500,
+        width: 600,
+        height : 300,
         backgroundColor: '#BDD2B6',
         margin: '20px 15px',
         display: 'flex',
